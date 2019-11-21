@@ -1,9 +1,9 @@
 package main
 
 import (
-    "runtime"
+	"runtime"
 )
 
 func main() {
-    println(runtime.GOOS)
+	println(runtime.GOOS)
 }

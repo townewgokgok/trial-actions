@@ -4,7 +4,12 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+
+    # Windows Server 2019	windows-latest
+    # Ubuntu 18.04	ubuntu-latestまたはubuntu-18.04
+    # Ubuntu 16.04	ubuntu-16.04
+    # macOS X Catalina 10.15	macos-latest
+    runs-on: [windows-latest, linux]
     steps:
 
     - name: Set up Go 1.13
