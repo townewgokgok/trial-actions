@@ -33,7 +33,8 @@ jobs:
         run: |
           pwd
           jq .
+          echo $PATH
           go run mage.go build
           ls -R release/
           go install github.com/tcnksm/ghr
-          $GOPATH/bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
+          ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
