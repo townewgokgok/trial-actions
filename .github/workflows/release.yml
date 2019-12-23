@@ -31,10 +31,8 @@ jobs:
           GO111MODULE: on
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pwd
-          jq .
-          echo $PATH
+          export TAGNAME=$(jq -r .ref "$GITHUB_EVENT_PATH")
           go run mage.go build
           ls -R release/
-          go install github.com/tcnksm/ghr
+          go get -u github.com/tcnksm/ghr
           ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
