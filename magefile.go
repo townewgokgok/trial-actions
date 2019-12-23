@@ -15,7 +15,7 @@ func init() {
 
 // Build program
 func Build() error {
-	dname := "release/" + runtime.GOOS + "-" + runtime.GOARCH
+	dname := "release/trial-actions-" + runtime.GOOS + "-" + runtime.GOARCH
 	if err := os.MkdirAll(dname, 0755); err != nil {
 		return err
 	}
@@ -24,6 +24,9 @@ func Build() error {
 		fname += ".exe"
 	}
 	if err := sh.RunV("go", "build", "-o", fname, "."); err != nil {
+		return err
+	}
+	if err := sh.RunV("tar", "cvzf", dname+".tar.gz", dname); err != nil {
 		return err
 	}
 	return nil
