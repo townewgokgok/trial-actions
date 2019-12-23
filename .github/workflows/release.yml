@@ -35,5 +35,5 @@ jobs:
           jq .
           go run mage.go build
           ls -R release/
-          GO111MODULE=off go get -u github.com/tcnksm/ghr
+          go install github.com/tcnksm/ghr
           $GOPATH/bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
