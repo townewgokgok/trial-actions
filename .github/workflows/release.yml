@@ -36,4 +36,4 @@ jobs:
           ls -R release/
           mkdir bin
           GOBIN="$(pwd)/bin" go install github.com/tcnksm/ghr
-          ./bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/*.tar.gz
+          ./bin/ghr -replace -c "$(git rev-parse HEAD)" -n "${TAGNAME}" -b "Release ${TAGNAME}" -draft "${TAGNAME}" release/*.tar.gz
