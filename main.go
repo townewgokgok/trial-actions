@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	println(runtime.GOOS)
+	println("Hello "+runtime.GOOS+"!")
 }
