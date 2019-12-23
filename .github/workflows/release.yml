@@ -29,16 +29,8 @@ jobs:
         GOPATH: /home/runner/work/
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        export CREATE_EVENT_REF_TYPE=$(jq --raw-output .ref_type "$GITHUB_EVENT_PATH")
-        export TAGNAME=$(jq --raw-output .ref "$GITHUB_EVENT_PATH")
-        echo "========================================================="
-        echo "DEBUG:" $TAGNAME $CREATE_EVENT_REF_TYPE
-        echo "========================================================="
-        if [ "$CREATE_EVENT_REF_TYPE" != "tag" ]; then echo "ref_type is not a tag: ${CREATE_EVENT_REF_TYPE}" && exit 78; fi
+        jq .
         go run mage.go build
-        echo "========================================================="
-        echo "DEBUG: ls -R release/"
         ls -R release/
-        echo "========================================================="
         go get -u github.com/tcnksm/ghr
         $GOPATH/bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
