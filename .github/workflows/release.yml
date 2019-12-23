@@ -11,26 +11,29 @@ jobs:
     # Ubuntu 18.04	ubuntu-latestまたはubuntu-18.04
     # Ubuntu 16.04	ubuntu-16.04
     # macOS X Catalina 10.15	macos-latest
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          # - windows-latest
     steps:
-
-    - name: Set up Go 1.13
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.13
-      id: go
-
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@master
-
-    - name: Build
-      env:
-        GO111MODULE: on
-        GOPATH: /home/runner/work/
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        jq .
-        go run mage.go build
-        ls -R release/
-        go get -u github.com/tcnksm/ghr
-        $GOPATH/bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
+      - name: Set up Go 1.13
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.13
+        id: go
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@master
+      - name: Build
+        env:
+          GO111MODULE: on
+          GOPATH: /home/runner/work/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          jq .
+          go run mage.go build
+          ls -R release/
+          GO111MODULE=off go get -u github.com/tcnksm/ghr
+          $GOPATH/bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
