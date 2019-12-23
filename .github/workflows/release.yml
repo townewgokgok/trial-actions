@@ -29,9 +29,9 @@ jobs:
       - name: Build
         env:
           GO111MODULE: on
-          GOPATH: /home/runner/work/
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          pwd
           jq .
           go run mage.go build
           ls -R release/
