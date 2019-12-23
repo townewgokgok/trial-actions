@@ -35,4 +35,4 @@ jobs:
           go run mage.go build
           ls -R release/
           GOBIN="$GOPATH/bin" go install github.com/tcnksm/ghr
-          ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
+          "$GOPATH/bin/ghr" -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
