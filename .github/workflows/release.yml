@@ -34,5 +34,5 @@ jobs:
           export TAGNAME=$(jq -r .ref "$GITHUB_EVENT_PATH")
           go run mage.go build
           ls -R release/
-          go get -u github.com/tcnksm/ghr
+          GOBIN="$GOPATH/bin" go install github.com/tcnksm/ghr
           ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
