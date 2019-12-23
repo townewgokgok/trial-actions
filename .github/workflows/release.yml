@@ -35,5 +35,5 @@ jobs:
           go run mage.go build
           ls -R release/
           mkdir bin
-          GOBIN=./bin go install github.com/tcnksm/ghr
+          GOBIN="$(pwd)/bin" go install github.com/tcnksm/ghr
           ./bin/ghr -n ${TAGNAME} -b "Release ${TAGNAME}" -draft ${TAGNAME} release/
