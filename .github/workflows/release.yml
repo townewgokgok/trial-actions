@@ -98,7 +98,9 @@ jobs:
           else
             mv trial-actions dist/
           fi
-          ASSET_NAME="trial-actions_${{ github.ref }}_${{ matrix.goos }}_${{ matrix.arch }}.zip"
+          TAG=$( echo "${{ github.ref }}" | sed -e "s#^refs/tags/##g" )
+          GOOS_ARCH="${{ matrix.goos }}_${{ matrix.arch }}"
+          ASSET_NAME="trial-actions_${TAG}_${GOOS_ARCH}.zip"
           zip -r "$ASSET_NAME" dist
 
       - name: Download artifact to get url to upload to release
