@@ -93,9 +93,9 @@ jobs:
         cp LICENSE dist/
         GOOS=$goos GOARCH=$goarch go build -v .
         if [ -e trial-actions.exe ]; then
-          mv trial-actions dist/
-        else
           mv trial-actions.exe dist/
+        else
+          mv trial-actions dist/
         fi
         zip -j -r trial-actions dist
     - name: Download artifact to get url to upload to release
