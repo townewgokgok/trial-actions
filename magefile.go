@@ -15,7 +15,7 @@ func init() {
 
 // Build program
 func Build() error {
-	dname := "release/trial-actions-" + runtime.GOOS + "-" + runtime.GOARCH
+	dname := "dist/trial-actions-" + runtime.GOOS + "-" + runtime.GOARCH
 	if err := os.MkdirAll(dname, 0755); err != nil {
 		return err
 	}

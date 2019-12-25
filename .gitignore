@@ -1,5 +1,6 @@
 /bin/
-/release/
+/artifact/
+/dist/
 
 
 # Created by https://www.gitignore.io/api/osx,windows,code,go
