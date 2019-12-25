@@ -92,8 +92,12 @@ jobs:
         mkdir dist
         cp LICENSE dist/
         GOOS=$goos GOARCH=$goarch go build -v .
-        mv trial-actions dist/ || mv trial-actions.exe dist/
-        zip -j -r release dist
+        if [ -e trial-actions.exe ]; then
+          mv trial-actions dist/
+        else
+          mv trial-actions.exe dist/
+        fi
+        zip -j -r trial-actions dist
     - name: Download artifact to get url to upload to release
       uses: actions/download-artifact@v1
       with:
@@ -110,6 +114,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_url.outputs.upload_url }}
-        asset_path: release.zip
-        asset_name: release-${{ matrix.os }}.zip
+        asset_path: trial-actions.zip
+        asset_name: trial-actions_${{ github.ref }}_${{ matrix.goos }}_${{ matrix.arch }}.zip
         asset_content_type: application/zip
